@@ -1,4 +1,4 @@
-# 💻 Escritorio Interactivo de Sistemas Operativos
+# Escritorio Interactivo de Sistemas Operativos
 
 Este proyecto es una simulación de un escritorio tipo Windows creada con HTML, CSS y JavaScript. A través de una interfaz visual e interactiva, se explican conceptos fundamentales de **Sistemas Operativos** como procesos, hilos, modelos de estado y algoritmos de planificación.
 
@@ -11,23 +11,11 @@ Docente: **Juan Carlos Rodríguez**
 
 ---
 
-## 🌐 Aplicación en vivo
-
-Haz clic en el siguiente enlace para interactuar con el escritorio:
-
-🔗 **[Ver aplicación interactiva](https://sulevilo.github.io/escritorio-so)**
-
----
-
-## video explicativo
+**[enlace aplicación interactiva](https://sulevilo.github.io/escritorio-so)**
 
 **[Ver video de presentación](https://drive.google.com/file/d/1KucfxtWTMZhyiGz2A4KfDKMU4B_VgipM/view?usp=sharing)**
 
----
-
-**[Ir al repositorio en GitHub](https://github.com/sulevilo/escritorio-so)**
-
----
+**[repositorio en GitHub](https://github.com/sulevilo/escritorio-so)**
 
 ## Temas abordados
 
@@ -48,5 +36,3 @@ Cada uno de estos temas está representado visualmente a través de íconos, ven
 - HTML5  
 - CSS3 (con estilo retro gracias a [7.css](https://khang-nd.github.io/7.css/))  
 - JavaScript
-
----
