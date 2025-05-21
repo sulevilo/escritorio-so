@@ -1,157 +1,260 @@
-// Actualización de reloj en la barra de tareas
-function updateClock() {
-  const now = new Date();
-
-  let hours = now.getHours();
-  const minutes = now.getMinutes().toString().padStart(2, '0');
-  const ampm = hours >= 12 ? 'p.m.' : 'a.m.';
-
-  hours = hours % 12 || 12; // 0 => 12
-  const formattedTime = `${hours}:${minutes} ${ampm}`;
-
-  const day = now.getDate().toString().padStart(2, '0');
-  const month = (now.getMonth() + 1).toString().padStart(2, '0');
-  const year = now.getFullYear();
-  const formattedDate = `${day}/${month}/${year}`;
-
-  const timeEl = document.getElementById("taskbar-time");
-  if (timeEl) {
-    timeEl.innerHTML = `
-      <div>${formattedTime}</div>
-      <div>${formattedDate}</div>
-    `;
-  }
+/* Fondo tipo escritorio */
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: sans-serif;
 }
 
-// Inicializar reloj y mantenerlo actualizado
-document.addEventListener("DOMContentLoaded", () => {
-  updateClock();
-  setInterval(updateClock, 1000);
-
-  // Asegurar que las ventanas se traen al frente cuando se hace clic
-  document.querySelectorAll(".window").forEach(win => {
-    win.addEventListener("mousedown", () => bringToFront(win));
-  });
-
-  // Activar tabs al estilo 7.css
-  document.querySelectorAll('[role="tab"]').forEach((tab) => {
-    tab.addEventListener("click", () => {
-      const tablist = tab.closest('[role="tablist"]');
-      const tabs = tablist.querySelectorAll('[role="tab"]');
-      const panels = tablist.parentElement.querySelectorAll('[role="tabpanel"]');
-
-      tabs.forEach(t => t.setAttribute("aria-selected", "false"));
-      panels.forEach(p => p.hidden = true);
-
-      tab.setAttribute("aria-selected", "true");
-      document.getElementById(tab.getAttribute("aria-controls")).hidden = false;
-    });
-  });
-});
-
-// 🪟 Manejo de ventanas (posición, z-index y apertura múltiple ordenada)
-let windowCount = 0;
-let zCounter = 10;
-
-function openWindow(id) {
-  const win = document.getElementById(`window-${id}`);
-  if (!win) return;
-
-  if (!win.classList.contains("hidden")) {
-    bringToFront(win);
-    return;
-  }
-
-  const winWidth = win.offsetWidth || 620;
-  const winHeight = win.offsetHeight || 440;
-
-  const screenWidth = window.innerWidth;
-  const screenHeight = window.innerHeight;
-
-  // Centrado base
-  let left = (screenWidth - winWidth) / 2;
-  let top = (screenHeight - winHeight) / 2;
-
-  // Pequeño desplazamiento incremental
-  const offset = 20 * windowCount;
-  left += offset;
-  top += offset;
-
-  // No salir del viewport
-  left = Math.min(left, screenWidth - winWidth - 10);
-  top = Math.min(top, screenHeight - winHeight - 10);
-
-  win.style.position = "fixed";
-  win.style.left = `${left}px`;
-  win.style.top = `${top}px`;
-  win.style.transform = ""; // quitar cualquier centrado por CSS
-
-  win.classList.remove("hidden");
-  bringToFront(win);
-  windowCount++;
+#desktop {
+  background: url('https://imagenes.elpais.com/resizer/v2/BJNYEZUIPJMIVB4DGLV3SBJODQ.jpg?auth=351667fd8fa8c5b4cccd0fc0b02ba7a103f5bf56395994911c35cfc2336b5821&width=980') no-repeat center center;
+  background-size: cover;
+  height: 100%;
+  position: relative;
 }
 
-
-function closeWindow(id) {
-  const win = document.getElementById(`window-${id}`);
-  if (win) {
-    win.classList.add("hidden");
-  }
+/* Barra de tareas */
+#taskbar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 40px;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  justify-content: space-between;
+  z-index: 9999;
+}
+/* Accesos directos */
+.hidden {
+  display: none !important;
+}
+.shortcut {
+  width: 70px;
+  text-align: center;
+  background: none;
+  border: none;
+  color: white;
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 12px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.shortcut .icon {
+  width: 32px;
+  height: 32px;
+  margin-bottom: 4px;
+}
+.config-tab {
+  display: none;
+}
+.config-tab:not(.hidden) {
+  display: block;
+}
+/* Ventanas */
+.window {
+  position: fixed;
+  background: white;
+  z-index: 1000;
+  border-radius: 8px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.5);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  max-width: 95vw;
+  max-height: 95vh;
 }
 
-
-
-
-// Cambiar pestañas específicas (por ejemplo, dentro de configuración)
-function showSettingsTab(tabId) {
-  const tabs = document.querySelectorAll('.settings-tab');
-  tabs.forEach(tab => tab.classList.add('hidden'));
-  const active = document.getElementById('settings-' + tabId);
-  if (active) active.classList.remove('hidden');
+.window-header {
+  background: #e0e0e0;
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: move;
+  user-select: none;
 }
-let highestZ = 1000;
-let draggedWindow = null;
-let offsetX = 0;
-let offsetY = 0;
-
-// Hacer ventanas arrastrables y llevarlas al frente
-document.querySelectorAll(".window").forEach(win => {
-  const header = win.querySelector(".window-header");
-  
-  if (header) {
-    header.addEventListener("mousedown", e => {
-      draggedWindow = win;
-      bringToFront(win); // traer al frente
-      offsetX = e.clientX - win.offsetLeft;
-      offsetY = e.clientY - win.offsetTop;
-      document.addEventListener("mousemove", dragWindow);
-      document.addEventListener("mouseup", stopDragging);
-    });
-  }
-
-  // También al hacer clic en cualquier parte de la ventana
-  win.addEventListener("mousedown", () => bringToFront(win));
-});
-
-function dragWindow(e) {
-  if (!draggedWindow) return;
-
-  // Solo quitar transform una vez
-  if (draggedWindow.style.transform) {
-    draggedWindow.style.transform = '';
-  }
-
-  draggedWindow.style.left = `${e.clientX - offsetX}px`;
-  draggedWindow.style.top = `${e.clientY - offsetY}px`;
+.window-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+.window-body button {
+  background: none;
+  color: white;
+  font-weight: bold;
+  width: 100%;
+  text-align: left;
+  border-radius: 4px;
+  transition: background 0.2s;
 }
 
-function stopDragging() {
-  draggedWindow = null;
-  document.removeEventListener("mousemove", dragWindow);
-  document.removeEventListener("mouseup", stopDragging);
+.window-body button:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+.window-body input {
+  font-size: 14px;
+  color: #333;
+  background-color: #f9f9f9;
+  border: none;
+  padding: 6px;
+  width: 100%;
+}
+/* Chrome fake searchbar */
+.fake-searchbar input {
+  background: transparent;
+  border: none;
+  width: 100%;
+  font-size: 16px;
+}
+.fake-searchbar .g {
+  margin-right: 8px;
 }
 
-function bringToFront(win) {
-  highestZ += 1;
-  win.style.zIndex = highestZ;
+/* Resultados de búsqueda */
+.search-results p {
+  margin-bottom: 8px;
+}
+
+/* Botón de inicio */
+.start-button {
+  cursor: pointer;
+  padding: 3px 6px;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+  display: flex;
+  align-items: center;
+}
+
+.start-button:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.start-icon {
+  height: 24px;
+  width: 24px;
+}
+
+/* Reloj */
+.taskbar-time {
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 11px;
+  color: #ccc;
+  text-align: center;
+  line-height: 1.2;
+}
+
+.taskbar-time .date {
+  font-size: 11px;
+  color: #ccc;
+}
+.settings-window {
+  display: flex;
+  width: 800px;
+  height: 500px;
+  background: #f3f3f3;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.settings-sidebar {
+  width: 200px;
+  background: #e6e6e6;
+  padding: 20px;
+  border-right: 1px solid #ccc;
+}
+
+.sidebar-title {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.settings-sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.settings-sidebar li {
+  padding: 8px;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: background 0.2s;
+}
+
+.settings-sidebar li:hover {
+  background-color: #dcdcdc;
+}
+
+.settings-content {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.settings-tab {
+  display: block;
+}
+
+.settings-tab.hidden {
+  display: none;
+}
+.control-item {
+  display: flex;
+  align-items: flex-start;
+  background: white;
+  border-radius: 8px;
+  padding: 12px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.1);
+  transition: transform 0.2s ease;
+}
+
+.control-item:hover {
+  transform: scale(1.02);
+}
+
+.control-icon {
+  width: 48px;
+  height: 48px;
+  margin-right: 12px;
+}
+.icon-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 16px;
+  padding: 10px;
+}
+
+.icon {
+  text-align: center;
+  font-family: 'Segoe UI', sans-serif;
+  color: black;
+}
+
+.icon img {
+  margin-bottom: 8px;
+}
+
+.taskbar-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.taskbar-button {
+  background: none;
+  border: none;
+  padding: 4px;
+  cursor: pointer;
+}
+
+.taskbar-button img {
+  width: 24px;
+  height: 24px;
 }
