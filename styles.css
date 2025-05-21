@@ -1,0 +1,102 @@
+/* Estilos personalizados para el escritorio */
+
+.shortcut {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 70px;
+  height: 70px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 0.5rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  text-align: center;
+  transition: background 0.2s;
+}
+
+.shortcut:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+}
+
+.modal-content {
+  background: #1f2937;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+}
+
+.btn-close {
+  background: #ef4444;
+  color: white;
+  padding: 0.3rem 0.6rem;
+  border-radius: 0.5rem;
+  margin-top: 1rem;
+  font-weight: bold;
+}
+
+.window {
+  position: absolute;
+  top: 80px;
+  left: 100px;
+  width: 600px;
+  height: 400px;
+  background: #1f2937;
+  border: 2px solid #4b5563;
+  border-radius: 0.5rem;
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+}
+
+.window-header {
+  background: #374151;
+  padding: 0.5rem 1rem;
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #4b5563;
+}
+
+.window-body {
+  flex-grow: 1;
+  padding: 1rem;
+  overflow-y: auto;
+}
+
+.tabs {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.tabs button {
+  background: #6b7280;
+  padding: 0.3rem 0.7rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+.tab-content {
+  display: block;
+}
+
+.tab-content.hidden {
+  display: none;
+}

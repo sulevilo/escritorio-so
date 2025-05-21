@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Simulador de Escritorio - SO</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script defer src="script.js"></script>
+</head>
+<body class="bg-blue-900 text-white font-sans">
+  <!-- Escritorio -->
+  <div id="desktop" class="w-screen h-screen relative overflow-hidden">
+    <!-- Accesos directos -->
+    <div class="absolute top-4 left-4 space-y-4">
+      <button class="shortcut" onclick="openModal('chatgpt')">
+        🤖<br>ChatGPT
+      </button>
+      <button class="shortcut" onclick="openWindow('taskManager')">
+        🗂<br>Administrador
+      </button>
+      <button class="shortcut" onclick="openWindow('youtube')">
+        📺<br>Hilos
+      </button>
+      <button class="shortcut" onclick="openWindow('browser')">
+        🌐<br>Google
+      </button>
+    </div>
+
+    <!-- Modal ChatGPT -->
+    <div id="modal-chatgpt" class="modal hidden">
+      <div class="modal-content">
+        <h2 class="text-xl font-bold mb-2">¿Qué es un proceso?</h2>
+        <p>Un <strong>proceso</strong> es un programa en ejecución. Mientras que un programa es solo código guardado, un proceso incluye memoria, CPU y recursos asignados.</p>
+        <p class="mt-2">Es como una receta (programa) y cocinarla realmente (proceso).</p>
+        <button onclick="closeModal('chatgpt')" class="btn-close">Cerrar</button>
+      </div>
+    </div>
+
+    <!-- Ventana Administrador de Tareas -->
+    <div id="window-taskManager" class="window hidden">
+      <div class="window-header">Administrador de tareas <button onclick="closeWindow('taskManager')" class="btn-close">✖</button></div>
+      <div class="window-body">
+        <div class="tabs">
+          <button onclick="showTab('proc-vs-prog')">Proceso vs Programa</button>
+          <button onclick="showTab('estados')">Estados de Proceso</button>
+        </div>
+        <div id="tab-proc-vs-prog" class="tab-content">
+          <p><strong>Programa:</strong> código guardado en disco.</p>
+          <p><strong>Proceso:</strong> programa en ejecución con recursos.</p>
+        </div>
+        <div id="tab-estados" class="tab-content hidden">
+          <img src="modelo_estados.png" alt="Modelo de 5 estados" class="w-full max-w-md mx-auto">
+          <p class="text-center mt-2">Modelo: Nuevo, Listo, En ejecución, Bloqueado, Terminado</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Ventana YouTube -->
+    <div id="window-youtube" class="window hidden">
+      <div class="window-header">YouTube - Hilos y Procesos <button onclick="closeWindow('youtube')" class="btn-close">✖</button></div>
+      <div class="window-body">
+        <iframe width="100%" height="315" src="https://www.youtube.com/embed/VIDEO_ID" frameborder="0" allowfullscreen></iframe>
+        <p class="mt-2">Un <strong>hilo</strong> es la unidad más pequeña de ejecución dentro de un proceso. Múltiples hilos comparten memoria y recursos.</p>
+        <p>Un proceso puede tener múltiples hilos, como pestañas de un navegador.</p>
+      </div>
+    </div>
+
+    <!-- Ventana Navegador -->
+    <div id="window-browser" class="window hidden">
+      <div class="window-header">Google Chrome - Algoritmos de planificación <button onclick="closeWindow('browser')" class="btn-close">✖</button></div>
+      <div class="window-body">
+        <p class="font-bold">Resultados de búsqueda:</p>
+        <ul class="space-y-2">
+          <li><strong>FCFS:</strong> Atiende en orden de llegada. 🕒</li>
+          <li><strong>SJF:</strong> Atiende el más corto primero. 📏</li>
+          <li><strong>Round Robin:</strong> Tiempo fijo por turno. 🔁</li>
+          <li><strong>Prioridad:</strong> Atiende según importancia. 🏷</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Barra de tareas -->
+    <div class="absolute bottom-0 left-0 w-full bg-black bg-opacity-40 p-2 flex items-center space-x-2">
+      <span>🪟 Inicio</span>
+      <span class="ml-auto">🕒 12:00</span>
+    </div>
+  </div>
+</body>
+</html>
