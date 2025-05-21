@@ -4,11 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Escritorio SO</title>
-  <base href="/escritorio-so/">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/7.css">
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
-  <script defer src="script.js"></script>
+ <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/7.css">
+<link rel="stylesheet" href="styles.css" />
+  <script src="script.js" defer></script>
 </head>
 <body>
   <!-- Fondo de escritorio -->
@@ -36,7 +34,9 @@
     <div id="window-chrome" class="window hidden">
   <div class="window-header">
     Google Chrome - Búsqueda
-    <button onclick="closeWindow('chrome')" class="btn-close">✖</button>
+<button class="no-drag" onclick="closeWindow('chrome')">✖</button>
+
+    <!-- <button onclick="closeWindow('chrome')" class="btn-close">✖</button> -->
   </div>
   <div class="window-body p-4 bg-white text-black font-sans overflow-y-auto">
     <!-- Simulación de barra de búsqueda -->
