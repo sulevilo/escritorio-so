@@ -1,102 +1,262 @@
-/* Estilos personalizados para el escritorio */
+/* Fondo tipo escritorio */
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: sans-serif;
+}
 
+#desktop {
+  background: url('https://imagenes.elpais.com/resizer/v2/BJNYEZUIPJMIVB4DGLV3SBJODQ.jpg?auth=351667fd8fa8c5b4cccd0fc0b02ba7a103f5bf56395994911c35cfc2336b5821&width=980') no-repeat center center;
+  background-size: cover;
+  height: 100%;
+  position: relative;
+}
+
+/* Barra de tareas */
+#taskbar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 40px;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  justify-content: space-between;
+  z-index: 9999;
+}
+/* Accesos directos */
+.hidden {
+  display: none;
+}
 .shortcut {
+  width: 70px;
+  text-align: center;
+  background: none;
+  border: none;
+  color: white;
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 12px;
+  cursor: pointer;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  width: 70px;
-  height: 70px;
-  background-color: rgba(255, 255, 255, 0.1);
-  border-radius: 0.5rem;
-  cursor: pointer;
-  padding: 0.5rem;
-  text-align: center;
-  transition: background 0.2s;
+  margin-bottom: 10px;
 }
-
-.shortcut:hover {
-  background-color: rgba(255, 255, 255, 0.2);
+.shortcut .icon {
+  width: 32px;
+  height: 32px;
+  margin-bottom: 4px;
 }
-
-.modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 50;
+.config-tab {
+  display: none;
 }
-
-.modal-content {
-  background: #1f2937;
-  padding: 1.5rem;
-  border-radius: 1rem;
-  width: 90%;
-  max-width: 500px;
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+.config-tab:not(.hidden) {
+  display: block;
 }
-
-.btn-close {
-  background: #ef4444;
-  color: white;
-  padding: 0.3rem 0.6rem;
-  border-radius: 0.5rem;
-  margin-top: 1rem;
-  font-weight: bold;
-}
-
+/* Ventanas */
 .window {
-  position: absolute;
-  top: 80px;
-  left: 100px;
-  width: 600px;
-  height: 400px;
-  background: #1f2937;
-  border: 2px solid #4b5563;
-  border-radius: 0.5rem;
-  z-index: 40;
-  display: flex;
+  width: 800px;
+  max-width: 90%;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.5);
+  position: fixed;
+  z-index: 1000;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  overflow: hidden;
   flex-direction: column;
 }
 
 .window-header {
-  background: #374151;
-  padding: 0.5rem 1rem;
+  background: #e0e0e0;
   font-weight: bold;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid #4b5563;
+  cursor: move;
+  user-select: none;
+}
+.window-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+.window-body button {
+  background: none;
+  color: white;
+  font-weight: bold;
+  width: 100%;
+  text-align: left;
+  border-radius: 4px;
+  transition: background 0.2s;
 }
 
-.window-body {
-  flex-grow: 1;
-  padding: 1rem;
+.window-body button:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+.window-body input {
+  font-size: 14px;
+  color: #333;
+  background-color: #f9f9f9;
+  border: none;
+  padding: 6px;
+  width: 100%;
+}
+/* Chrome fake searchbar */
+.fake-searchbar input {
+  background: transparent;
+  border: none;
+  width: 100%;
+  font-size: 16px;
+}
+.fake-searchbar .g {
+  margin-right: 8px;
+}
+
+/* Resultados de búsqueda */
+.search-results p {
+  margin-bottom: 8px;
+}
+
+/* Botón de inicio */
+.start-button {
+  cursor: pointer;
+  padding: 3px 6px;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+  display: flex;
+  align-items: center;
+}
+
+.start-button:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.start-icon {
+  height: 24px;
+  width: 24px;
+}
+
+/* Reloj */
+.taskbar-time {
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 11px;
+  color: #ccc;
+  text-align: center;
+  line-height: 1.2;
+}
+
+.taskbar-time .date {
+  font-size: 11px;
+  color: #ccc;
+}
+.settings-window {
+  display: flex;
+  width: 800px;
+  height: 500px;
+  background: #f3f3f3;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.settings-sidebar {
+  width: 200px;
+  background: #e6e6e6;
+  padding: 20px;
+  border-right: 1px solid #ccc;
+}
+
+.sidebar-title {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.settings-sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.settings-sidebar li {
+  padding: 8px;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: background 0.2s;
+}
+
+.settings-sidebar li:hover {
+  background-color: #dcdcdc;
+}
+
+.settings-content {
+  flex: 1;
+  padding: 20px;
   overflow-y: auto;
 }
 
-.tabs {
-  display: flex;
-  gap: 0.5rem;
-  margin-bottom: 1rem;
-}
-
-.tabs button {
-  background: #6b7280;
-  padding: 0.3rem 0.7rem;
-  border-radius: 0.5rem;
-  cursor: pointer;
-}
-
-.tab-content {
+.settings-tab {
   display: block;
 }
 
-.tab-content.hidden {
+.settings-tab.hidden {
   display: none;
+}
+.control-item {
+  display: flex;
+  align-items: flex-start;
+  background: white;
+  border-radius: 8px;
+  padding: 12px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.1);
+  transition: transform 0.2s ease;
+}
+
+.control-item:hover {
+  transform: scale(1.02);
+}
+
+.control-icon {
+  width: 48px;
+  height: 48px;
+  margin-right: 12px;
+}
+.icon-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 16px;
+  padding: 10px;
+}
+
+.icon {
+  text-align: center;
+  font-family: 'Segoe UI', sans-serif;
+  color: black;
+}
+
+.icon img {
+  margin-bottom: 8px;
+}
+
+.taskbar-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.taskbar-button {
+  background: none;
+  border: none;
+  padding: 4px;
+  cursor: pointer;
+}
+
+.taskbar-button img {
+  width: 24px;
+  height: 24px;
 }
