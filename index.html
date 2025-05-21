@@ -3,88 +3,267 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Simulador de Escritorio - SO</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
-  <script defer src="script.js"></script>
+  <title>Escritorio SO</title>
+ <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/7.css">
+<link rel="stylesheet" href="styles.css" />
+  <script src="script.js" defer></script>
 </head>
-<body class="bg-blue-900 text-white font-sans">
-  <!-- Escritorio -->
-  <div id="desktop" class="w-screen h-screen relative overflow-hidden">
-    <!-- Accesos directos -->
-    <div class="absolute top-4 left-4 space-y-4">
-      <button class="shortcut" onclick="openModal('chatgpt')">
-        🤖<br>ChatGPT
-      </button>
-      <button class="shortcut" onclick="openWindow('taskManager')">
-        🗂<br>Administrador
-      </button>
-      <button class="shortcut" onclick="openWindow('youtube')">
-        📺<br>Hilos
-      </button>
-      <button class="shortcut" onclick="openWindow('browser')">
-        🌐<br>Google
-      </button>
-    </div>
+<body>
+  <!-- Fondo de escritorio -->
+  <div id="desktop">
+    <!-- Aquí agregaremos accesos directos luego -->
+     <!-- Acceso directo a Google Chrome -->
+    <button class="shortcut" onclick="openWindow('chrome')">
+        <img src="https://www.google.com/chrome/static/images/chrome-logo-m100.svg" alt="Chrome" class="icon" />
+        <span>Algoritmos de planificación</span>
+    </button>
+    <!-- Acceso directo a Configuración -->
+    <button class="shortcut" onclick="openWindow('settings')">
+        <img src="https://img.icons8.com/ios-filled/50/ffffff/settings.png" alt="Configuración" class="icon" />
+        <span>¿Que es un proceso?</span>
+    </button>
+    <!-- Acceso directo a "¿Qué es un hilo?" -->
+    <button class="shortcut" onclick="openWindow('threadsVideo')">
+    <img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" alt="¿Qué es un hilo?" class="icon" />
+    <span>¿Qué es un hilo?</span>
+    </button>
 
-    <!-- Modal ChatGPT -->
-    <div id="modal-chatgpt" class="modal hidden">
-      <div class="modal-content">
-        <h2 class="text-xl font-bold mb-2">¿Qué es un proceso?</h2>
-        <p>Un <strong>proceso</strong> es un programa en ejecución. Mientras que un programa es solo código guardado, un proceso incluye memoria, CPU y recursos asignados.</p>
-        <p class="mt-2">Es como una receta (programa) y cocinarla realmente (proceso).</p>
-        <button onclick="closeModal('chatgpt')" class="btn-close">Cerrar</button>
+
+  </div>
+    <!-- Ventana de Google Chrome simulada -->
+    <div id="window-chrome" class="window hidden">
+  <div class="window-header">
+    Google Chrome - Búsqueda
+    <button onclick="closeWindow('chrome')" class="btn-close">✖</button>
+  </div>
+  <div class="window-body p-4 bg-white text-black font-sans overflow-y-auto">
+    <!-- Simulación de barra de búsqueda -->
+    <div class="mb-6">
+      <div class="flex items-center border rounded px-3 py-2 shadow">
+        <span class="mr-2">🔍</span>
+        <input
+          type="text"
+          class="w-full outline-none"
+          value="algoritmos de planificación"
+          readonly
+        />
       </div>
     </div>
 
-    <!-- Ventana Administrador de Tareas -->
-    <div id="window-taskManager" class="window hidden">
-      <div class="window-header">Administrador de tareas <button onclick="closeWindow('taskManager')" class="btn-close">✖</button></div>
-      <div class="window-body">
-        <div class="tabs">
-          <button onclick="showTab('proc-vs-prog')">Proceso vs Programa</button>
-          <button onclick="showTab('estados')">Estados de Proceso</button>
-        </div>
-        <div id="tab-proc-vs-prog" class="tab-content">
-          <p><strong>Programa:</strong> código guardado en disco.</p>
-          <p><strong>Proceso:</strong> programa en ejecución con recursos.</p>
-        </div>
-        <div id="tab-estados" class="tab-content hidden">
-          <img src="modelo_estados.png" alt="Modelo de 5 estados" class="w-full max-w-md mx-auto">
-          <p class="text-center mt-2">Modelo: Nuevo, Listo, En ejecución, Bloqueado, Terminado</p>
-        </div>
+    <!-- Resultados de búsqueda -->
+    <div class="space-y-6 text-sm">
+      <div>
+        <a href="#" class="text-blue-800 text-lg hover:underline font-medium">
+          FCFS - First Come First Served
+        </a>
+        <div class="text-green-700 text-xs">www.ejemplo.com/fcfs</div>
+        <p>
+          El algoritmo FCFS (Primero en llegar, primero en ser atendido) ejecuta los procesos en el orden en que llegan a la cola. Es simple, pero puede provocar largos tiempos de espera.
+        </p>
       </div>
-    </div>
 
-    <!-- Ventana YouTube -->
-    <div id="window-youtube" class="window hidden">
-      <div class="window-header">YouTube - Hilos y Procesos <button onclick="closeWindow('youtube')" class="btn-close">✖</button></div>
-      <div class="window-body">
-        <iframe width="100%" height="315" src="https://www.youtube.com/embed/VIDEO_ID" frameborder="0" allowfullscreen></iframe>
-        <p class="mt-2">Un <strong>hilo</strong> es la unidad más pequeña de ejecución dentro de un proceso. Múltiples hilos comparten memoria y recursos.</p>
-        <p>Un proceso puede tener múltiples hilos, como pestañas de un navegador.</p>
+      <div>
+        <a href="#" class="text-blue-800 text-lg hover:underline font-medium">
+          SJF - Shortest Job First
+        </a>
+        <div class="text-green-700 text-xs">www.ejemplo.com/sjf</div>
+        <p>
+          El algoritmo SJF selecciona el proceso con el menor tiempo de ejecución estimado. Minimiza el tiempo promedio de espera, pero puede causar inanición en procesos largos.
+        </p>
       </div>
-    </div>
 
-    <!-- Ventana Navegador -->
-    <div id="window-browser" class="window hidden">
-      <div class="window-header">Google Chrome - Algoritmos de planificación <button onclick="closeWindow('browser')" class="btn-close">✖</button></div>
-      <div class="window-body">
-        <p class="font-bold">Resultados de búsqueda:</p>
-        <ul class="space-y-2">
-          <li><strong>FCFS:</strong> Atiende en orden de llegada. 🕒</li>
-          <li><strong>SJF:</strong> Atiende el más corto primero. 📏</li>
-          <li><strong>Round Robin:</strong> Tiempo fijo por turno. 🔁</li>
-          <li><strong>Prioridad:</strong> Atiende según importancia. 🏷</li>
-        </ul>
+      <div>
+        <a href="#" class="text-blue-800 text-lg hover:underline font-medium">
+          Round Robin
+        </a>
+        <div class="text-green-700 text-xs">www.ejemplo.com/round-robin</div>
+        <p>
+          El algoritmo Round Robin asigna un intervalo fijo de tiempo (quantum) a cada proceso en la cola, rotando entre ellos. Favorece la equidad entre procesos.
+        </p>
       </div>
-    </div>
 
-    <!-- Barra de tareas -->
-    <div class="absolute bottom-0 left-0 w-full bg-black bg-opacity-40 p-2 flex items-center space-x-2">
-      <span>🪟 Inicio</span>
-      <span class="ml-auto">🕒 12:00</span>
+      <div>
+        <a href="#" class="text-blue-800 text-lg hover:underline font-medium">
+          Planificación por Prioridad
+        </a>
+        <div class="text-green-700 text-xs">www.ejemplo.com/prioridad</div>
+        <p>
+          Este algoritmo ejecuta los procesos basándose en su nivel de prioridad. Los de mayor prioridad se ejecutan antes, pero puede haber inanición para procesos con baja prioridad.
+        </p>
+      </div>
     </div>
   </div>
+    </div>
+<!-- Ventana de Configuración estilo Panel de Control -->
+<div id="window-settings" class="window hidden">
+  <div class="window-header">
+    Configuración del Sistema 
+    <button onclick="closeWindow('settings')" class="btn-close">✖</button>
+  </div>
+  <div class="window-body p-4 bg-white">
+    <div class="icon-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px;">
+
+      <!-- Ítem: ¿Qué es un proceso? -->
+      <div class="icon">
+        <img src="https://images.icon-icons.com/195/PNG/256/Control_Panel_23581.png" alt="Proceso" width="48" height="48" />
+        <div>
+          <a href="#" class="text-link">¿Qué es un proceso?</a>
+          <div class="text-sm">
+            Un proceso es un programa en ejecución que tiene asignados recursos como CPU, memoria, archivos y dispositivos de E/S. Es una unidad activa, con estado propio (PCB), y puede crear otros procesos.
+          </div>
+        </div>
+      </div>
+
+      <!-- Ítem: Diferencia entre proceso y programa -->
+      <div class="icon">
+        <img src="https://images.icon-icons.com/195/PNG/256/Help_and_Support_23389.png" alt="Diferencia" width="48" height="48" />
+        <div>
+          <a href="#" class="text-link">Proceso vs Programa</a>
+          <div class="text-sm">
+            Un programa es un archivo pasivo de instrucciones (como un `.exe`). Un proceso es la ejecución activa de ese programa en el sistema operativo. El programa puede no cambiar, pero cada proceso tiene su propio estado, recursos y tiempo de vida.
+          </div>
+        </div>
+      </div>
+
+      <!-- Puedes agregar más ítems aquí en el mismo formato -->
+
+    </div>
+  </div>
+</div>
+
+
+<!-- Ventana del Administrador de Tareas con tamaño fijo -->
+<div id="window-taskmgr" class="window hidden" style="width: 620px; height: 440px;">
+  <div class="window-header">
+    Modelos de estado de procesos
+    <button onclick="closeWindow('taskmgr')" class="btn-close">✖</button>
+  </div>
+  <div class="window-body bg-white text-black font-sans" style="height: 370px; display: flex; flex-direction: column; padding: 10px; overflow: hidden;">
+    
+    <!-- Sección de Definición -->
+    <div style="margin-bottom: 10px; flex: 0 0 auto;">
+      <fieldset style="border: 1px solid #000; padding: 8px;">
+        <legend><strong>Definición</strong></legend>
+        <p style="margin: 0;">
+          El <strong>modelo de estados de procesos</strong> describe las etapas que atraviesa un proceso durante su ciclo de vida en el sistema operativo, desde su creación hasta su terminación.
+        </p>
+      </fieldset>
+    </div>
+
+    <!-- Sección de Tabla -->
+    <div style="flex: 1 1 auto; overflow-y: auto;">
+      <table class="table is-striped is-bordered w-full">
+        <thead>
+          <tr>
+            <th>Estado</th>
+            <th>Descripción</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Nuevo</td>
+            <td>Proceso que ha sido creado pero aún no está listo para ejecutarse.</td>
+          </tr>
+          <tr>
+            <td>Listo</td>
+            <td>El proceso está en espera para ser asignado a la CPU.</td>
+          </tr>
+          <tr>
+            <td>En ejecución</td>
+            <td>El proceso está siendo ejecutado activamente por la CPU.</td>
+          </tr>
+          <tr>
+            <td>Bloqueado</td>
+            <td>El proceso no puede continuar hasta que ocurra un evento externo (como la finalización de una operación de E/S).</td>
+          </tr>
+          <tr>
+            <td>Terminado</td>
+            <td>El proceso ha finalizado su ejecución y está esperando ser eliminado del sistema.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<!-- Ventana de explicación de hilos -->
+<div id="window-threadsVideo" class="window hidden" style="width: 500px;">
+    <div class="window-header">
+    YouTube - ¿Qué es un hilo?
+    <button onclick="closeWindow('threadsVideo')" class="btn-close">✖</button>
+  </div>
+  
+  <div class="window-body bg-white text-black font-sans" style="padding: 0;">
+
+    <!-- Video simulado (GIF) -->
+    <div style="background: black; text-align: center;">
+      <img src="https://media.tenor.com/wtUvZPngCRAAAAAM/fd.gif" alt="Video" style="max-width: 100%; height: auto;" />
+    </div>
+
+    <!-- Título del video -->
+    <div style="padding: 10px 15px;">
+      <h3 style="margin: 0; font-size: 16px;">¿Qué es un hilo en sistemas operativos?</h3>
+      <div style="color: gray; font-size: 12px;">1,245 vistas • subido hace 2 horas</div>
+
+      <!-- Descripción del video -->
+      <div style="margin-top: 10px; font-size: 13px;">
+        <strong>Descripción:</strong><br />
+        Un <strong>hilo</strong> (thread) es la unidad más pequeña de ejecución dentro de un proceso. Todos los hilos de un proceso comparten los mismos recursos (memoria, archivos, etc.) y pueden ejecutarse en paralelo.
+      </div>
+    </div>
+
+    <!-- Comentarios simulados -->
+    <hr />
+    <div style="padding: 0 15px 10px;">
+      <h4 style="font-size: 13px; margin-bottom: 8px;">💬 Comentarios</h4>
+
+      <div style="margin-bottom: 10px;">
+        <strong>user123:</strong><br />
+        Un proceso tiene su propia memoria, mientras que los hilos comparten la misma.
+      </div>
+
+      <div style="margin-bottom: 10px;">
+        <strong>tech_guru:</strong><br />
+        La comunicación entre hilos es más fácil porque están en el mismo espacio de memoria.
+      </div>
+
+      <div style="margin-bottom: 10px;">
+        <strong>ana.dev:</strong><br />
+        Los procesos son independientes, los hilos son parte de un mismo proceso.
+      </div>
+
+      <div>
+        <strong>sysops_fan:</strong><br />
+        Para tareas ligeras y paralelas, los hilos son más eficientes que usar múltiples procesos.
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+  <!-- Barra de tareas -->
+  <div id="taskbar">
+  <!-- Grupo de botones lado izquierdo -->
+  <div class="taskbar-left">
+    <div class="start-button">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Windows_logo_-_2012.svg/1200px-Windows_logo_-_2012.svg.png" alt="Inicio" class="start-icon" />
+    </div>
+
+    <!-- Botón del Administrador de tareas -->
+    <button class="taskbar-button" onclick="openWindow('taskmgr')">
+      <img src="https://somebooks.es/wp-content/uploads/2016/09/tip209-019.png" alt="Administrador de tareas" />
+    </button>
+  </div>
+
+  <!-- Reloj -->
+  <div class="taskbar-time" id="taskbar-time">🕒 --:--</div>
+</div>
+
 </body>
 </html>
