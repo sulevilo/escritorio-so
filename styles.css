@@ -258,3 +258,63 @@ body, html {
   width: 24px;
   height: 24px;
 }
+/* Ventana de procesos y PCB */
+#window-process-sim .window-body {
+  background: #f3f6fa;
+  font-size: 15px;
+}
+#process-list {
+  margin-top: 10px;
+}
+.process-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 6px 0;
+  border-bottom: 1px solid #e0e6ef;
+}
+.process-row:last-child { border-bottom: none; }
+.process-state {
+  padding: 2px 8px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: bold;
+  color: #fff;
+  min-width: 80px;
+  text-align: center;
+}
+.state-Nuevo { background: #6c757d; }
+.state-Listo { background: #0078d7; }
+.state-Ejecutando { background: #28a745; }
+.state-Bloqueado { background: #ffc107; color: #333; }
+.state-Terminado { background: #dc3545; }
+#simulate-interrupt-btn {
+  background: linear-gradient(#eaf6ff, #b7d6f7);
+  border: 1px solid #7baaf7;
+  border-radius: 6px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: box-shadow 0.2s;
+}
+#simulate-interrupt-btn:hover {
+  box-shadow: 0 0 6px #0078d7;
+}
+#pcb-popup {
+  animation: pcb-pop 0.5s;
+  box-shadow: 0 8px 32px #0078d7aa;
+  border: 2px solid #0078d7;
+  background: #f8fbff;
+}
+@keyframes pcb-pop {
+  0% { transform: scale(0.7); opacity: 0; }
+  80% { transform: scale(1.05); opacity: 1; }
+  100% { transform: scale(1); }
+}
+#pcb-popup .window-header {
+  background: #0078d7;
+  color: #fff;
+  border-radius: 2px 2px 0 0;
+}
+#pcb-popup .window-body {
+  font-size: 14px;
+}

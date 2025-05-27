@@ -152,3 +152,163 @@ function closeWindow(id) {
     win.classList.add("hidden");
   }
 }
+// ...existing code...
+
+// --- Simulación de procesos e interrupciones ---
+
+// Estados posibles
+const PROCESS_STATES = ["Nuevo", "Listo", "Ejecutando", "Bloqueado", "Terminado"];
+
+// Procesos simulados
+const processes = [
+  { pid: 1, nombre: "Bloc de notas", estado: "Nuevo" },
+  { pid: 2, nombre: "Calculadora", estado: "Nuevo" },
+  { pid: 3, nombre: "Paint", estado: "Nuevo" },
+  { pid: 4, nombre: "Explorador", estado: "Nuevo" }
+];
+
+// PCB simulado (registros y contexto)
+function createPCB(proc) {
+  return {
+    PID: proc.pid,
+    Nombre: proc.nombre,
+    Estado: proc.estado,
+    PC: "0x" + (Math.random()*0xFFF0|0).toString(16),
+    AX: Math.floor(Math.random()*1000),
+    BX: Math.floor(Math.random()*1000),
+    CX: Math.floor(Math.random()*1000),
+    DX: Math.floor(Math.random()*1000),
+    Flags: "0b" + (Math.random()*0b111111|0).toString(2).padStart(6,"0")
+  };
+}
+
+let currentIdx = 0;
+
+// Inicializa la ventana de procesos
+function renderProcessList() {
+  const list = document.getElementById("process-list");
+  if (!list) return;
+  list.innerHTML = "";
+  processes.forEach((proc, i) => {
+    const icon = i === currentIdx && proc.estado !== "Terminado"
+      ? "🟢" : proc.estado === "Terminado"
+      ? "✅" : "🗂️";
+    list.innerHTML += `
+      <div class="process-row">
+        <span>${icon}</span>
+        <span><b>${proc.nombre}</b></span>
+        <span>PID: ${proc.pid}</span>
+        <span class="process-state state-${proc.estado}">${proc.estado}</span>
+      </div>
+    `;
+  });
+}
+
+// Cambia el estado de procesos según ciclo FIFO
+function nextProcess() {
+  // Termina el actual si no está terminado
+  if (processes[currentIdx].estado !== "Terminado") {
+    processes[currentIdx].estado = "Listo";
+  }
+  // Busca el siguiente proceso no terminado
+  let next = (currentIdx + 1) % processes.length;
+  let found = false;
+  for (let i = 0; i < processes.length; i++) {
+    if (processes[next].estado !== "Terminado") {
+      found = true;
+      break;
+    }
+    next = (next + 1) % processes.length;
+  }
+  if (!found) return; // Todos terminados
+
+  // Cambia el estado
+  processes[next].estado = "Ejecutando";
+  currentIdx = next;
+}
+
+// Simula la interrupción y muestra PCB
+function simulateInterrupt() {
+  const proc = processes[currentIdx];
+  if (proc.estado === "Terminado") return;
+
+  // Cambia estado a Bloqueado y guarda PCB
+  proc.estado = "Bloqueado";
+  const pcb = createPCB(proc);
+
+  // Muestra PCB flotante
+  showPCBPopup(pcb);
+
+  // Sonido leve tipo Windows
+  playWinSound();
+
+  setTimeout(() => {
+    // Cambia proceso y oculta PCB
+    proc.estado = "Listo";
+    nextProcess();
+    renderProcessList();
+    hidePCBPopup();
+  }, 2200);
+  renderProcessList();
+}
+
+// Muestra ventana PCB
+function showPCBPopup(pcb) {
+  const popup = document.getElementById("pcb-popup");
+  const content = document.getElementById("pcb-content");
+  if (!popup || !content) return;
+  content.innerHTML = `
+    <b>PID:</b> ${pcb.PID}<br>
+    <b>Nombre:</b> ${pcb.Nombre}<br>
+    <b>Estado:</b> ${pcb.Estado}<br>
+    <b>PC:</b> ${pcb.PC}<br>
+    <b>AX:</b> ${pcb.AX} &nbsp; <b>BX:</b> ${pcb.BX}<br>
+    <b>CX:</b> ${pcb.CX} &nbsp; <b>DX:</b> ${pcb.DX}<br>
+    <b>Flags:</b> ${pcb.Flags}
+  `;
+  popup.classList.remove("hidden");
+  // Centrar en pantalla
+  popup.style.left = (window.innerWidth/2 - popup.offsetWidth/2) + "px";
+  popup.style.top = (window.innerHeight/2 - popup.offsetHeight/2) + "px";
+}
+
+// Oculta PCB
+function hidePCBPopup() {
+  const popup = document.getElementById("pcb-popup");
+  if (popup) popup.classList.add("hidden");
+}
+
+// Sonido leve tipo Windows
+function playWinSound() {
+  const ctx = new (window.AudioContext || window.webkitAudioContext)();
+  const o = ctx.createOscillator();
+  const g = ctx.createGain();
+  o.type = "triangle";
+  o.frequency.value = 880;
+  g.gain.value = 0.08;
+  o.connect(g).connect(ctx.destination);
+  o.start();
+  setTimeout(() => { o.stop(); ctx.close(); }, 180);
+}
+
+// Abre la ventana de simulación de procesos
+function openProcessSim() {
+  openWindow('process-sim');
+  // Primer proceso pasa a Ejecutando si todos están en Nuevo
+  if (processes.every(p => p.estado === "Nuevo")) {
+    processes[0].estado = "Ejecutando";
+  }
+  renderProcessList();
+}
+
+// Botón de simulación de interrupción
+document.addEventListener("DOMContentLoaded", () => {
+  const btn = document.getElementById("simulate-interrupt-btn");
+  if (btn) btn.addEventListener("click", simulateInterrupt);
+
+  // Puedes agregar un acceso desde el menú principal o taskbar:
+  // Ejemplo: document.getElementById("abrir-procesos-btn").onclick = openProcessSim;
+});
+
+// Opcional: abre la ventana de procesos al cargar para pruebas
+// setTimeout(openProcessSim, 1200);
