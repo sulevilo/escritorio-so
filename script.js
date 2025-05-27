@@ -147,7 +147,7 @@ function renderProcessList() {
         <td>${proc.nombre}</td>
         <td><span class="process-state state-${proc.estado}">${proc.estado}</span></td>
         <td>
-          <button class="button" style="padding:2px 8px;font-size:12px;" onclick="showPCBPopup(createPCB(processes[${i}]))">Ver PCB</button>
+          <button class="button" style="padding:2px 8px;font-size:12px;" onclick="showPCBPopup(createPCB(processes[${i}]), false)">Ver PCB</button>
         </td>
       </tr>
     `;
@@ -181,7 +181,7 @@ function simulateInterrupt() {
   proc.estado = "Bloqueado";
   const pcb = createPCB(proc);
 
-  showPCBPopup(pcb);
+  showPCBPopup(pcb, true);
   playWinSound();
 
   setTimeout(() => {
@@ -193,8 +193,8 @@ function simulateInterrupt() {
   renderProcessList();
 }
 
-// Muestra ventana PCB
-function showPCBPopup(pcb) {
+// Cambia la función showPCBPopup para aceptar autocierre opcional
+function showPCBPopup(pcb, autoClose = false) {
   const popup = document.getElementById("pcb-popup");
   const content = document.getElementById("pcb-content");
   if (!popup || !content) return;
@@ -210,6 +210,16 @@ function showPCBPopup(pcb) {
   popup.classList.remove("hidden");
   popup.style.left = (window.innerWidth/2 - popup.offsetWidth/2) + "px";
   popup.style.top = (window.innerHeight/2 - popup.offsetHeight/2) + "px";
+
+  // SIEMPRE autocerrar y cerrar al hacer click fuera
+  setTimeout(hidePCBPopup, 2200);
+  function outsideClick(e) {
+    if (!popup.contains(e.target)) {
+      hidePCBPopup();
+      document.removeEventListener('mousedown', outsideClick);
+    }
+  }
+  document.addEventListener('mousedown', outsideClick);
 }
 
 function hidePCBPopup() {
