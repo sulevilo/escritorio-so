@@ -33,64 +33,108 @@
   </div>
   <!-- Ventana Chrome - Twitter -->
 <div id="window-chrome-twitter" class="window hidden">
-  <div class="window-header">
+  <div class="window-header" style="display:flex;align-items:center;gap:10px;">
+    <img src="https://abs.twimg.com/icons/apple-touch-icon-192x192.png" alt="Twitter" style="width:24px;height:24px;">
     Google Chrome - Twitter
-    <button class="btn-close" onclick="closeWindow('chrome-twitter')">✖</button>
+    <button class="btn-close" onclick="closeWindow('chrome-twitter')" style="margin-left:auto;">✖</button>
   </div>
   <div class="window-body p-4 bg-white text-black font-sans overflow-y-auto">
-    <h2 style="color:#1da1f2; margin-bottom: 10px;">
-      <img src="https://abs.twimg.com/icons/apple-touch-icon-192x192.png" alt="Twitter" style="width:32px;vertical-align:middle;margin-right:8px;">
-      FCFS - First Come First Served
-    </h2>
-    <div style="border:1px solid #e1e8ed; border-radius:12px; padding:16px; margin-bottom:18px; background:#f7fafd;">
-      <div style="display:flex;align-items:center;gap:10px;">
-        <img src="https://abs.twimg.com/sticky/default_profile_images/default_profile_400x400.png" alt="avatar" style="width:38px;height:38px;border-radius:50%;">
+    <!-- Tweet principal -->
+    <div style="border:1px solid #e1e8ed; border-radius:16px; padding:18px; margin-bottom:18px; background:#f7fafd; max-width:480px; margin-left:auto; margin-right:auto;">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <img src="https://abs.twimg.com/sticky/default_profile_images/default_profile_400x400.png" alt="avatar" style="width:48px;height:48px;border-radius:50%;">
         <div>
-          <b>@so_user</b> <span style="color:#888;">· ahora</span><br>
-          <span style="font-size:15px;">
-            El algoritmo <b>FCFS (First Come First Served)</b> atiende los procesos en el orden en que llegan. Es el más simple, pero puede provocar largos tiempos de espera si un proceso largo llega primero.<br>
-            <span style="color:#1da1f2;">#PlanificaciónDeProcesos #FCFS</span>
-          </span>
+          <b>@ing_jairo</b> <span style="color:#888;">· ahora</span>
+          <img src="https://abs.twimg.com/icons/apple-touch-icon-192x192.png" alt="Twitter" style="width:18px;height:18px;vertical-align:middle;margin-left:4px;">
+          <br>
+          <span style="color:#1da1f2;font-size:13px;">FCFS - First Come First Served</span>
         </div>
       </div>
+      <div style="margin:16px 0 12px 0; font-size:16px;">
+        El algoritmo <b>FCFS</b> (First Come First Served) atiende los procesos en el orden en que llegan. Es el más simple, pero puede provocar largos tiempos de espera si un proceso largo llega primero.
+      </div>
       <!-- Imagen principal del tweet -->
-      <img src="fcfs.jpg" alt="FCFS" style="width:220px;max-width:90%;height:auto;border-radius:16px;object-fit:cover;display:block;margin:12px auto;">
-      <div style="margin-top:10px; font-size:13px; color:#444;">
+      <img src="fcfs.jpg" alt="FCFS" style="width:340px;max-width:98%;height:auto;border-radius:16px;object-fit:cover;display:block;margin:0 auto 14px auto;">
+      <div style="color:#1da1f2;font-size:15px;margin-bottom:8px;">#PlanificaciónDeProcesos #FCFS</div>
+      <div style="margin-top:8px; font-size:14px; color:#444;">
         <b>Ventajas:</b> Fácil de implementar.<br>
         <b>Desventajas:</b> Puede causar el problema de "convoy" (procesos cortos esperando a uno largo).
       </div>
     </div>
-    <div style="margin-bottom:8px; color:#555; font-size:13px;"><b>💬 Comentarios</b></div>
-    <div style="margin-bottom:10px; border-bottom:1px solid #eee; padding-bottom:8px;">
-      <b>@os_guru</b>:  
+    <!-- Comentarios -->
+    <div style="margin-bottom:8px; color:#555; font-size:14px;"><b>💬 Comentarios</b></div>
+    <div style="margin-bottom:12px; border-bottom:1px solid #eee; padding-bottom:8px;">
+      <b>@ing_uberto</b>:  
       <span>¡FCFS es ideal para sistemas simples, pero no para multitarea!</span>
     </div>
-    <div style="margin-bottom:10px; border-bottom:1px solid #eee; padding-bottom:8px;">
-      <b>@cpu_fan</b>:  
+    <div style="margin-bottom:12px; border-bottom:1px solid #eee; padding-bottom:8px;">
+      <b>@ing_david</b>:  
       <span>¿Qué pasa si un proceso tarda mucho? Los demás esperan 😅</span>
+      <br>
+      <img src="https://media.giphy.com/media/3o7TKtnuHOHHUjR38Y/giphy.gif" alt="FCFS meme" style="width: 140px;;max-width:90%;border-radius:10px;margin-top:6px;">
     </div>
-    <div style="margin-bottom:10px;">
-      <b>@profe_so</b>:  
+    <div style="margin-bottom:12px; border-bottom:1px solid #eee; padding-bottom:8px;">
+      <b>@prof_ing_juan</b>:  
       <span>Dato: FCFS es equivalente a una cola FIFO (First In, First Out).</span>
+    </div>
+    <div style="margin-bottom:12px;">
+      <b>@ing_suleidy</b>:  
+      <span>En sistemas interactivos, FCFS puede no ser la mejor opción.</span>
     </div>
   </div>
 </div>
 
 <!-- Ventana Chrome - Instagram -->
 <div id="window-chrome-instagram" class="window hidden">
-  <div class="window-header">
+  <div class="window-header" style="display:flex;align-items:center;gap:10px;">
+    <img src="https://instagram.com/static/images/ico/favicon-192.png/68d99ba29cc8.png" alt="Instagram" style="width:24px;height:24px;">
     Google Chrome - Instagram
-    <button class="btn-close" onclick="closeWindow('chrome-instagram')">✖</button>
+    <button class="btn-close" onclick="closeWindow('chrome-instagram')" style="margin-left:auto;">✖</button>
   </div>
   <div class="window-body p-4 bg-white text-black font-sans overflow-y-auto">
-    <h2 style="color:#e1306c;">Instagram</h2>
-    <img src="https://instagram.com/static/images/ico/favicon-192.png/68d99ba29cc8.png" alt="Instagram" style="width:40px;">
-    <p>Historias sobre algoritmos de planificación.<br>
-    <img src="https://media.giphy.com/media/26ufnwz3wDUli7GU0/giphy.gif" alt="gif" style="width:100px;">
-    </p>
-    <div style="color:#555;font-size:13px;">
-      <b>@planificacion_os:</b> ¡SJF minimiza el tiempo de espera!<br>
-      <b>@cpu_life:</b> #FIFO #RoundRobin #SJF
+    <!-- Post principal estilo Instagram -->
+    <div style="border:1px solid #e1306c33; border-radius:16px; padding:0; margin-bottom:18px; background:#fff0fa; max-width:400px; margin-left:auto; margin-right:auto;">
+      <!-- Cabecera del post -->
+      <div style="display:flex;align-items:center;gap:10px;padding:14px 14px 0 14px;">
+        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="avatar" style="width:38px;height:38px;border-radius:50%;">
+        <div>
+          <b>@ing_david</b><br>
+          <span style="color:#888;font-size:13px;">SJF - Shortest Job First</span>
+        </div>
+      </div>
+      <!-- Imagen principal -->
+      <div style="padding:14px;">
+        <img src="sjf.jpg" alt="SJF" style="width:100%;max-width:340px;height:auto;object-fit:cover;border-radius:12px;display:block;margin:0 auto;">
+      </div>
+      <!-- Descripción -->
+      <div style="padding:0 14px 10px 14px;">
+        <div style="font-size:15px;margin-bottom:8px;">
+          <b>@ing_david</b>
+          El algoritmo <b>SJF</b> (Shortest Job First) selecciona el proceso con el menor tiempo de ejecución estimado.<br>
+          <span style="color:#e1306c;">#SJF #PlanificaciónDeProcesos #CPU</span>
+        </div>
+        <div style="font-size:13px;color:#444;margin-bottom:8px;">
+          <b>Ventajas:</b> Minimiza el tiempo promedio de espera.<br>
+          <b>Desventajas:</b> Puede causar inanición en procesos largos.
+        </div>
+      </div>
+      <!-- Comentarios -->
+      <div style="padding:0 14px 10px 14px;">
+        <div style="margin-bottom:8px; color:#e1306c; font-size:14px;"><b>💬 Comentarios</b></div>
+        <div>
+          <b>@ing_angie</b>:  
+          <span>Cuando eres el proceso más corto y te eligen primero 😎</span>
+        </div>
+        <div style="margin-bottom:8px;">
+          <b>@ing_jairo</b>:  
+          <span>¡SJF es genial para tareas cortas, pero los procesos largos pueden esperar mucho!</span>
+        </div>
+        <div style="margin-bottom:8px;">
+          <b>@prof_ing_juan</b>:  
+          <span>Recuerden: SJF puede causar inanición si siempre llegan procesos cortos.</span>
+        </div>
+        
+      </div>
     </div>
   </div>
 </div>
