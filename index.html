@@ -249,17 +249,75 @@
 </div>
 
 <!-- Ventana de simulación de procesos -->
-<div id="window-process-sim" class="window hidden" style="width: 420px; min-height: 320px; z-index: 20;">
+<div id="window-process-sim" class="window hidden" style="width: 540px; min-height: 340px; z-index: 20;">
   <div class="window-header">
-    <span>Simulación de Procesos</span>
-    <button class="close-btn no-drag" onclick="closeWindow('process-sim')">✕</button>
+    Simulación de Procesos
+    <button class="btn-close" onclick="closeWindow('process-sim')">✖</button>
   </div>
-  <div class="window-body" style="padding: 12px;">
-    <button id="simulate-interrupt-btn" class="button" style="margin-bottom: 10px; display: flex; align-items: center; gap: 8px;">
-      <img src="https://img.icons8.com/color/32/flash-on--v1.png" alt="Interrupt" style="width:18px;">
-      <span>Simular interrupción</span>
-    </button>
-    <div id="process-list"></div>
+  <div class="window-body bg-white text-black font-sans" style="height: 290px; display: flex; flex-direction: column; padding: 10px; overflow: hidden;">
+    <!-- Diagrama de ciclo de vida -->
+    <fieldset style="border: 1px solid #0078d7; margin-bottom: 10px;">
+      <legend style="color:#0078d7;"><b>Ciclo de vida de proceso</b></legend>
+      <div style="display: flex; align-items: center; gap: 18px;">
+        <!-- SVG embebido aquí -->
+        <div style="max-width: 220px; margin: 0;">
+          <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExb2Z6d3J6d3F6b2J6d3J6d3F6b2J6d3F6b2J6d3F6b2J6d3F6/gw3IWyGkC0rsazTi/giphy.gif"
+       alt="Ciclo de vida de proceso" style="width:100%;border-radius:8px;">
+        </div>
+        <div>
+          <div id="lifecycle-steps" style="margin-bottom: 6px;">
+            <!-- Agrega esto encima de los botones del ciclo de vida -->
+          <div style="margin-bottom: 8px;">
+            <label for="lifecycle-pid"><b>Selecciona proceso:</b></label>
+            <select id="lifecycle-pid" class="button" style="margin-left: 8px;">
+              <option value="1">Bloc de notas (PID 1)</option>
+              <option value="2">Calculadora (PID 2)</option>
+              <option value="3">Paint (PID 3)</option>
+              <option value="4">Explorador (PID 4)</option>
+            </select>
+          </div>
+            <button class="button" onclick="lifecycleStep('Nuevo')">Nuevo</button>
+            <button class="button" onclick="lifecycleStep('Listo')">Listo</button>
+            <button class="button" onclick="lifecycleStep('Ejecutando')">En ejecución</button>
+            <button class="button" onclick="lifecycleStep('Bloqueado')">Bloqueado</button>
+            <button class="button" onclick="lifecycleStep('Terminado')">Terminado</button>
+          </div>
+          <div id="lifecycle-desc" style="font-size: 13px; color: #0078d7;"></div>
+        </div>
+      </div>
+    </fieldset>
+    <!-- Algoritmo de planificación -->
+    <div style="margin-bottom: 8px;">
+      <label for="scheduler-select"><b>Algoritmo:</b></label>
+      <select id="scheduler-select" class="button" style="margin-left: 8px;">
+        <option value="FIFO">FIFO</option>
+        <option value="RR">Round Robin</option>
+        <option value="SJF">SJF</option>
+      </select>
+      <input id="rr-quantum" type="number" min="1" value="2" style="width:50px;display:none;" class="input" placeholder="Quantum">
+      <span id="rr-label" style="display:none;">Quantum</span>
+    </div>
+    <!-- Lista de procesos -->
+    <div style="flex: 1 1 auto; overflow-y: auto;">
+      <table class="table is-striped is-bordered w-full" id="process-list-table">
+        <thead>
+          <tr>
+            <th>PID</th>
+            <th>Nombre</th>
+            <th>Estado</th>
+            <th>Acción</th>
+          </tr>
+        </thead>
+        <tbody id="process-list"></tbody>
+      </table>
+    </div>
+    <!-- Botón de simulación -->
+    <div style="margin-top: 8px; text-align: right;">
+      <button id="simulate-interrupt-btn" class="button" style="display: inline-flex; align-items: center; gap: 8px;">
+        <img src="https://img.icons8.com/color/32/flash-on--v1.png" alt="Interrupt" style="width:18px;">
+        <span>Simular interrupción</span>
+      </button>
+    </div>
   </div>
 </div>
 

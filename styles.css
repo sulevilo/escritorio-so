@@ -318,3 +318,11 @@ body, html {
 #pcb-popup .window-body {
   font-size: 14px;
 }
+
+/* Botones estilo Windows 7 con texto gris elegante */
+.button,
+#simulate-interrupt-btn,
+#window-process-sim .button,
+.window-body button {
+  color: #3a3a3a !important;
+}
