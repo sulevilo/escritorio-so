@@ -282,3 +282,35 @@ function openProcessSim() {
   }
   renderProcessList();
 }
+
+// --- Hacer ventanas arrastrables ---
+document.querySelectorAll('.window').forEach(win => makeWindowDraggable(win));
+
+function makeWindowDraggable(win) {
+  const header = win.querySelector('.window-header');
+  if (!header) return;
+  let offsetX = 0, offsetY = 0, isDragging = false;
+
+  header.style.cursor = "move";
+  header.onmousedown = function(e) {
+    isDragging = true;
+    bringToFront(win);
+    offsetX = e.clientX - win.offsetLeft;
+    offsetY = e.clientY - win.offsetTop;
+    document.onmousemove = function(e) {
+      if (!isDragging) return;
+      win.style.left = (e.clientX - offsetX) + "px";
+      win.style.top = (e.clientY - offsetY) + "px";
+    };
+    document.onmouseup = function() {
+      isDragging = false;
+      document.onmousemove = null;
+      document.onmouseup = null;
+    };
+  };
+}
+
+// Al cargar la página, haz arrastrables todas las ventanas existentes
+document.addEventListener("DOMContentLoaded", () => {
+  document.querySelectorAll('.window').forEach(win => makeWindowDraggable(win));
+});
