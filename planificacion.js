@@ -14,7 +14,7 @@ function createPlanWindow() {
   const win = document.createElement("div");
   win.id = "window-plan";
   win.className = "window";
-  win.style = "width: 650px; min-height: 420px; z-index: 30; left: 80px; top: 80px; position:fixed;";
+  win.style = "width: 900px; min-height: 420px; z-index: 30; left: 80px; top: 80px; position:fixed;"; // <-- Cambiado a 900px
   win.innerHTML = `
     <div class="window-header">
       Simulación de Planificación de Procesos
@@ -25,7 +25,7 @@ function createPlanWindow() {
         <legend style="color:#0078d7;"><b>Agregar proceso</b></legend>
         <form id="plan-form" style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
           <input class="input" style="width:110px;" id="plan-nombre" placeholder="Nombre" required>
-          <input class="input" style="width:70px;" id="plan-llegada" type="number" min="0" placeholder="Llegada" required>
+          <input class="input" style="width:70px;display:none;" id="plan-llegada" type="number" min="1" placeholder="Llegada" readonly>
           <input class="input" style="width:70px;" id="plan-duracion" type="number" min="1" placeholder="Duración" required>
           <input class="input" style="width:70px;" id="plan-prioridad" type="number" min="1" placeholder="Prioridad" required>
           <button class="button" type="submit" style="padding:2px 12px;">Agregar</button>
@@ -66,6 +66,7 @@ function createPlanWindow() {
   document.body.appendChild(win);
   makeWindowDraggable(win);
   renderPlanProcList();
+  updatePlanLlegada();
 }
 
 // Mostrar ventana de planificación
@@ -90,6 +91,7 @@ function renderPlanProcList() {
   </tr>
     `;
   });
+  updatePlanLlegada();
 }
 
 // Eliminar proceso de la lista
@@ -126,7 +128,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (e.target && e.target.id === "plan-form") {
       e.preventDefault();
       const nombre = document.getElementById("plan-nombre").value.trim() || `P${planProcesses.length+1}`;
-      const llegada = parseInt(document.getElementById("plan-llegada").value, 10) || 0;
+      const llegada = parseInt(document.getElementById("plan-llegada").value, 10) || (planProcesses.length + 1);
       const duracion = parseInt(document.getElementById("plan-duracion").value, 10) || 1;
       const prioridad = parseInt(document.getElementById("plan-prioridad").value, 10) || 1;
       planProcesses.push({ nombre, llegada, duracion, prioridad, restante: duracion });
@@ -262,7 +264,7 @@ function planSimular() {
   renderPlanGantt(gantt);
 }
 
-// Renderizar diagrama de Gantt
+// Renderizar diagrama de Gantt clásico
 function renderPlanGantt(gantt) {
   const div = document.getElementById("plan-gantt");
   if (!div) return;
@@ -276,17 +278,42 @@ function renderPlanGantt(gantt) {
   let total = maxT - minT;
   let colorMap = {};
   planProcesses.forEach((p, i) => colorMap[p.nombre] = planColors[i % planColors.length]);
-  let html = `<div style="display:flex;align-items:center;gap:2px;">`;
-  gantt.forEach(g => {
-    let w = Math.max(18, ((g.fin - g.inicio) / (total || 1)) * 340);
-    html += `<div title="${g.nombre}: ${g.inicio}–${g.fin}" style="background:${colorMap[g.nombre]};color:#fff;border-radius:6px;padding:4px 0 2px 0;width:${w}px;text-align:center;font-size:13px;box-shadow:0 1px 2px #bbb;outline:1px solid #fff;margin-right:2px;">
-      ${g.nombre}<br><span style="font-size:11px;">${g.inicio}–${g.fin}</span>
-    </div>`;
+
+  // Obtener todos los nombres únicos de procesos
+  let procesosUnicos = [...new Set(planProcesses.map(p => p.nombre))];
+
+  // Construir filas por proceso
+  let html = `<div style="overflow-x:auto;"><table style="border-collapse:separate;border-spacing:0 8px;width:100%;">`;
+  html += `<tr><th style="width:90px;"></th><th style="text-align:left;">Línea de tiempo</th></tr>`;
+  procesosUnicos.forEach(nombre => {
+    html += `<tr><td style="font-weight:bold;color:#333;text-align:right;padding-right:8px;">${nombre}</td><td style="position:relative;">`;
+    let t = minT;
+    gantt.filter(g => g.nombre === nombre).forEach(g => {
+      // Espacio antes del bloque si hay hueco
+      if (g.inicio > t) {
+        let w = ((g.inicio - t) / (total || 1)) * 600;
+        html += `<span style="display:inline-block;width:${w}px;"></span>`;
+      }
+      // Bloque del proceso
+      let w = Math.max(18, ((g.fin - g.inicio) / (total || 1)) * 600);
+      html += `<span title="${g.nombre}: ${g.inicio}–${g.fin}" style="background:${colorMap[g.nombre]};color:#fff;border-radius:6px;padding:4px 0 2px 0;width:${w}px;display:inline-block;text-align:center;font-size:13px;box-shadow:0 1px 2px #bbb;outline:1px solid #fff;margin-right:2px;">
+        ${g.inicio}–${g.fin}
+      </span>`;
+      t = g.fin;
+    });
+    html += `</td></tr>`;
   });
-  html += `</div>`;
+  html += `</table></div>`;
   // Línea de tiempo
   html += `<div style="display:flex;justify-content:space-between;font-size:12px;color:#0078d7;margin-top:2px;">
     <span>${minT}</span><span>${maxT}</span>
   </div>`;
   div.innerHTML = html;
+}
+
+function updatePlanLlegada() {
+  const llegadaInput = document.getElementById("plan-llegada");
+  if (llegadaInput) {
+    llegadaInput.value = planProcesses.length + 1;
+  }
 }

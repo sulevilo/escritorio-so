@@ -28,7 +28,11 @@
     <img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" alt="¿Qué es un hilo?" class="icon" />
     <span>¿Qué es un hilo?</span>
     </button>
-
+    <!-- Acceso directo a la presentación de interrupciones -->
+<button class="shortcut" onclick="openWindow('ppt-interrupciones')">
+  <img src="https://img.icons8.com/color/48/000000/microsoft-powerpoint-2019--v2.png" alt="PowerPoint" class="icon" />
+  <span>Interrupciones y<br>Cambio de Contexto</span>
+</button>
 
   </div>
   <!-- Ventana Chrome - Twitter -->
@@ -614,6 +618,21 @@
   <div class="window-body" id="pcb-content" style="padding: 12px;"></div>
 </div>
 
+<!-- Ventana tipo PowerPoint para Interrupciones y Cambio de Contexto -->
+<div id="window-ppt-interrupciones" class="window hidden" style="width: 600px; min-height: 380px;">
+  <div class="window-header">
+    PowerPoint - Interrupciones y Cambio de Contexto
+    <button class="btn-close" onclick="closeWindow('ppt-interrupciones')">✖</button>
+  </div>
+  <div class="window-body bg-white text-black font-sans" style="padding: 0; display: flex; flex-direction: column; height: 320px;">
+    <div id="ppt-slide-content" style="flex:1; display:flex; align-items:center; justify-content:center; padding: 24px; font-size: 18px; text-align: center;"></div>
+    <div style="padding: 10px; display: flex; justify-content: space-between; align-items: center; background: #f3f3f3;">
+      <button id="ppt-prev-btn" class="button" style="padding: 4px 18px;">Anterior</button>
+      <span id="ppt-slide-indicator" style="font-size: 14px; color: #888;"></span>
+      <button id="ppt-next-btn" class="button" style="padding: 4px 18px;">Siguiente</button>
+    </div>
+  </div>
+</div>
 
   <!-- Barra de tareas -->
   <div id="taskbar">

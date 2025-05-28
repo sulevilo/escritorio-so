@@ -324,3 +324,78 @@ function makeWindowDraggable(win) {
 document.addEventListener("DOMContentLoaded", () => {
   document.querySelectorAll('.window').forEach(win => makeWindowDraggable(win));
 });
+
+// --- Sistema de diapositivas para Interrupciones y Cambio de Contexto ---
+
+const pptSlides = [
+  {
+    html: `<h2>¿Qué es una <span style="color:#e67e22;">interrupción</span>?</h2>
+    <p>Una interrupción es una señal que indica a la CPU que debe pausar lo que está haciendo para atender un evento importante.<br>
+    <img src="https://img.icons8.com/color/96/000000/alarm.png" style="margin-top:12px;"></p>`
+  },
+  {
+    html: `<h2>¿Por qué ocurren?</h2>
+    <p>Pueden ser causadas por hardware (teclado, mouse, disco) o software (errores, llamadas al sistema).<br>
+    <img src="https://img.icons8.com/color/96/000000/keyboard.png" style="margin:8px;">
+    <img src="https://img.icons8.com/color/96/000000/computer-support.png" style="margin:8px;">
+    <img src="https://img.icons8.com/color/96/000000/hdd.png" style="margin:8px;"></p>`
+  },
+  {
+    html: `<h2>¿Qué es un <span style="color:#2980b9;">cambio de contexto</span>?</h2>
+    <p>Cuando ocurre una interrupción, el sistema operativo guarda el estado del proceso actual y carga el de otro proceso.<br>
+    <img src="https://img.icons8.com/color/96/000000/swap.png" style="margin-top:12px;"></p>`
+  },
+  {
+    html: `<h2>¿Por qué es importante?</h2>
+    <p>Permite la multitarea y que el sistema responda rápido a eventos.<br>
+    <img src="https://img.icons8.com/color/96/000000/multiple-devices.png" style="margin-top:12px;"></p>`
+  },
+  {
+    html: `<h2 style="color:#c0392b;">¡Interrupción inesperada!</h2>
+    <p style="font-size:20px;">Error: El PowerPoint fue interrumpido por el sistema operativo 😅<br>
+    <img src="https://img.icons8.com/color/96/000000/error--v1.png" style="margin-top:12px;"></p>
+    <button class="button" onclick="pptRestart()" style="margin-top:18px;">Reiniciar presentación</button>`
+  }
+];
+
+let pptCurrent = 0;
+
+function showPptSlide(idx) {
+  const slide = pptSlides[idx];
+  document.getElementById('ppt-slide-content').innerHTML = slide.html;
+  document.getElementById('ppt-slide-indicator').textContent = `Diapositiva ${Math.min(idx+1, pptSlides.length)}/${pptSlides.length}`;
+  // Oculta botones en la última diapositiva
+  document.getElementById('ppt-next-btn').style.display = idx === pptSlides.length-1 ? 'none' : '';
+  document.getElementById('ppt-prev-btn').style.display = idx === 0 ? 'none' : '';
+}
+
+function pptRestart() {
+  pptCurrent = 0;
+  showPptSlide(pptCurrent);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  // Botones de navegación
+  document.getElementById('ppt-prev-btn').onclick = () => {
+    if (pptCurrent > 0) {
+      pptCurrent--;
+      showPptSlide(pptCurrent);
+    }
+  };
+  document.getElementById('ppt-next-btn').onclick = () => {
+    if (pptCurrent < pptSlides.length-1) {
+      pptCurrent++;
+      showPptSlide(pptCurrent);
+    }
+  };
+  // Al abrir la ventana, inicia en la primera diapositiva
+  window.openWindow = (function(orig){
+    return function(name) {
+      orig(name);
+      if(name === 'ppt-interrupciones') {
+        pptCurrent = 0;
+        showPptSlide(pptCurrent);
+      }
+    }
+  })(window.openWindow || function(name){document.getElementById('window-'+name).classList.remove('hidden');});
+});
