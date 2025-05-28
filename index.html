@@ -619,17 +619,18 @@
 </div>
 
 <!-- Ventana tipo PowerPoint para Interrupciones y Cambio de Contexto -->
-<div id="window-ppt-interrupciones" class="window hidden" style="width: 600px; min-height: 380px;">
-  <div class="window-header">
+<div id="window-ppt-interrupciones" class="window hidden" style="width: 820px; min-height: 520px; box-shadow:0 8px 32px #0005;">
+  <div class="window-header" style="background:#d24726;color:#fff;display:flex;align-items:center;gap:10px;font-size:18px;">
+    <img src="https://img.icons8.com/color/32/000000/microsoft-powerpoint-2019--v2.png" style="margin-right:8px;">
     PowerPoint - Interrupciones y Cambio de Contexto
-    <button class="btn-close" onclick="closeWindow('ppt-interrupciones')">✖</button>
+    <button class="btn-close" onclick="closeWindow('ppt-interrupciones')" style="margin-left:auto;">✖</button>
   </div>
-  <div class="window-body bg-white text-black font-sans" style="padding: 0; display: flex; flex-direction: column; height: 320px;">
-    <div id="ppt-slide-content" style="flex:1; display:flex; align-items:center; justify-content:center; padding: 24px; font-size: 18px; text-align: center;"></div>
-    <div style="padding: 10px; display: flex; justify-content: space-between; align-items: center; background: #f3f3f3;">
-      <button id="ppt-prev-btn" class="button" style="padding: 4px 18px;">Anterior</button>
-      <span id="ppt-slide-indicator" style="font-size: 14px; color: #888;"></span>
-      <button id="ppt-next-btn" class="button" style="padding: 4px 18px;">Siguiente</button>
+  <div class="window-body bg-white text-black font-sans" style="padding: 0; display: flex; flex-direction: column; height: 440px;">
+    <div id="ppt-slide-content" style="flex:1; min-height:450px; max-height:450px; overflow:auto; display:flex; align-items:center; justify-content:center; padding: 36px; font-size: 22px; text-align: center; background:#fff;"></div>
+    <div style="padding: 14px 24px; display: flex; justify-content: space-between; align-items: center; background: #f3f3f3;">
+      <button id="ppt-prev-btn" class="button" style="padding: 6px 28px;">Anterior</button>
+      <span id="ppt-slide-indicator" style="font-size: 16px; color: #888;"></span>
+      <button id="ppt-next-btn" class="button" style="padding: 6px 28px;">Siguiente</button>
     </div>
   </div>
 </div>

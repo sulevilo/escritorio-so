@@ -329,32 +329,52 @@ document.addEventListener("DOMContentLoaded", () => {
 
 const pptSlides = [
   {
-    html: `<h2>¿Qué es una <span style="color:#e67e22;">interrupción</span>?</h2>
+    html: `<h2 style="color:#d24726;">¿Qué es una <span style="color:#e67e22;">interrupción</span>?</h2>
     <p>Una interrupción es una señal que indica a la CPU que debe pausar lo que está haciendo para atender un evento importante.<br>
     <img src="https://img.icons8.com/color/96/000000/alarm.png" style="margin-top:12px;"></p>`
   },
   {
-    html: `<h2>¿Por qué ocurren?</h2>
+    html: `<h2 style="color:#d24726;">¿Por qué ocurren?</h2>
     <p>Pueden ser causadas por hardware (teclado, mouse, disco) o software (errores, llamadas al sistema).<br>
     <img src="https://img.icons8.com/color/96/000000/keyboard.png" style="margin:8px;">
     <img src="https://img.icons8.com/color/96/000000/computer-support.png" style="margin:8px;">
     <img src="https://img.icons8.com/color/96/000000/hdd.png" style="margin:8px;"></p>`
   },
   {
-    html: `<h2>¿Qué es un <span style="color:#2980b9;">cambio de contexto</span>?</h2>
+    html: `<h2 style="color:#d24726;">¿Qué es un <span style="color:#2980b9;">cambio de contexto</span>?</h2>
     <p>Cuando ocurre una interrupción, el sistema operativo guarda el estado del proceso actual y carga el de otro proceso.<br>
     <img src="https://img.icons8.com/color/96/000000/swap.png" style="margin-top:12px;"></p>`
   },
   {
-    html: `<h2>¿Por qué es importante?</h2>
+    html: `<h2 style="color:#d24726;">¿Por qué es importante?</h2>
     <p>Permite la multitarea y que el sistema responda rápido a eventos.<br>
     <img src="https://img.icons8.com/color/96/000000/multiple-devices.png" style="margin-top:12px;"></p>`
   },
   {
-    html: `<h2 style="color:#c0392b;">¡Interrupción inesperada!</h2>
-    <p style="font-size:20px;">Error: El PowerPoint fue interrumpido por el sistema operativo 😅<br>
-    <img src="https://img.icons8.com/color/96/000000/error--v1.png" style="margin-top:12px;"></p>
-    <button class="button" onclick="pptRestart()" style="margin-top:18px;">Reiniciar presentación</button>`
+    html: `
+    <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;">
+      <h2 style="color:#c0392b;margin-bottom:0;">¡Interrupción inesperada!</h2>
+      <img src="https://i.imgflip.com/4/4t0m5.jpg" alt="Meme" style="width:320px;max-width:100%;border-radius:10px;margin:18px 0 10px 0;">
+      <p style="font-size:18px;">Cuando el sistema operativo interrumpe tu PowerPoint...<br><b>¡Cambio de contexto!</b></p>
+    </div>
+    `
+  },
+  {
+    html: `
+    <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;">
+      <div style="background:#fff;border:2px solid #bdbdbd;border-radius:10px;box-shadow:0 4px 24px #0003;padding:32px 32px 24px 32px;max-width:420px;">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;">
+          <img src="https://img.icons8.com/color/48/000000/error--v1.png">
+          <span style="font-size:22px;color:#c0392b;font-weight:bold;">PowerPoint ha dejado de funcionar</span>
+        </div>
+        <div style="color:#222;font-size:17px;margin-bottom:18px;">
+          Un problema hizo que el programa dejara de funcionar correctamente.<br>
+          <span style="color:#888;">Windows cerrará el programa y le notificará si existe una solución.</span>
+        </div>
+        <button class="button" onclick="pptRestart()" style="padding:8px 32px;font-size:16px;background:#d24726;color:#fff;border:none;border-radius:6px;">Reiniciar PowerPoint</button>
+      </div>
+    </div>
+    `
   }
 ];
 
