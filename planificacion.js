@@ -27,6 +27,7 @@ function createPlanWindow() {
           <input class="input" style="width:110px;" id="plan-nombre" placeholder="Nombre" required>
           <input class="input" style="width:70px;" id="plan-llegada" type="number" min="0" placeholder="Llegada" required>
           <input class="input" style="width:70px;" id="plan-duracion" type="number" min="1" placeholder="Duración" required>
+          <input class="input" style="width:70px;" id="plan-prioridad" type="number" min="1" placeholder="Prioridad" required>
           <button class="button" type="submit" style="padding:2px 12px;">Agregar</button>
           <button class="button" type="button" onclick="planReset()" style="padding:2px 12px;">Reiniciar</button>
         </form>
@@ -36,7 +37,7 @@ function createPlanWindow() {
         <table class="table is-bordered" style="width:100%;margin-top:4px;font-size:14px;">
           <thead>
             <tr>
-              <th>Nombre</th><th>Llegada</th><th>Duración</th><th>Acción</th>
+              <th>Nombre</th><th>Llegada</th><th>Duración</th><th>Prioridad</th><th>Acción</th>
             </tr>
           </thead>
           <tbody id="plan-proc-list"></tbody>
@@ -48,6 +49,7 @@ function createPlanWindow() {
           <option value="FIFO">FIFO</option>
           <option value="RR">Round Robin</option>
           <option value="SJF">SJF</option>
+          <option value="PRIORIDAD">Prioridad</option>
         </select>
         <span id="plan-quantum-wrap" style="display:none;">
           <label style="margin-left:12px;">Quantum:</label>
@@ -79,12 +81,13 @@ function renderPlanProcList() {
   tbody.innerHTML = "";
   planProcesses.forEach((p, i) => {
     tbody.innerHTML += `
-      <tr>
-        <td>${p.nombre}</td>
-        <td>${p.llegada}</td>
-        <td>${p.duracion}</td>
-        <td><button class="button" style="padding:2px 8px;font-size:12px;" onclick="planRemoveProc(${i})">Eliminar</button></td>
-      </tr>
+  <tr>
+    <td>${p.nombre}</td>
+    <td>${p.llegada}</td>
+    <td>${p.duracion}</td>
+    <td>${p.prioridad}</td>
+    <td><button class="button" style="padding:2px 8px;font-size:12px;" onclick="planRemoveProc(${i})">Eliminar</button></td>
+  </tr>
     `;
   });
 }
@@ -125,7 +128,8 @@ document.addEventListener("DOMContentLoaded", () => {
       const nombre = document.getElementById("plan-nombre").value.trim() || `P${planProcesses.length+1}`;
       const llegada = parseInt(document.getElementById("plan-llegada").value, 10) || 0;
       const duracion = parseInt(document.getElementById("plan-duracion").value, 10) || 1;
-      planProcesses.push({ nombre, llegada, duracion, restante: duracion });
+      const prioridad = parseInt(document.getElementById("plan-prioridad").value, 10) || 1;
+      planProcesses.push({ nombre, llegada, duracion, prioridad, restante: duracion });
       renderPlanProcList();
       renderPlanGantt([]);
       e.target.reset();
@@ -230,6 +234,26 @@ function planSimular() {
         p.fin = tiempo;
         completados++;
       }
+    }
+  }
+
+  if (planAlgorithm === "PRIORIDAD") {
+    let completados = 0;
+    tiempo = Math.min(...procs.map(p => p.llegada));
+    while (completados < procs.length) {
+      // Procesos listos
+      let ready = procs.filter(p => !p.completado && p.llegada <= tiempo);
+      if (ready.length === 0) {
+        tiempo++;
+        continue;
+      }
+      // Menor valor = mayor prioridad (puedes invertir el signo si quieres al revés)
+      let prio = ready.reduce((a, b) => a.prioridad < b.prioridad ? a : b);
+      gantt.push({ nombre: prio.nombre, idx: prio.idx, inicio: tiempo, fin: tiempo + prio.duracion });
+      tiempo += prio.duracion;
+      prio.completado = true;
+      prio.fin = tiempo;
+      completados++;
     }
   }
 

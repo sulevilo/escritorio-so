@@ -141,38 +141,177 @@
 
 <!-- Ventana Chrome - Facebook -->
 <div id="window-chrome-facebook" class="window hidden">
-  <div class="window-header">
-    Google Chrome - Facebook
-    <button class="btn-close" onclick="closeWindow('chrome-facebook')">✖</button>
+  <div class="window-header" style="display:flex;align-items:center;gap:10px;">
+    <img src="https://www.facebook.com/images/fb_icon_325x325.png" alt="Facebook" style="width:24px;height:24px;">    Google Chrome - Facebook
+    <button class="btn-close" onclick="closeWindow('chrome-facebook')" style="margin-left:auto;">✖</button>
   </div>
   <div class="window-body p-4 bg-white text-black font-sans overflow-y-auto">
-    <h2 style="color:#1877f3;">Facebook</h2>
-    <img src="https://static.xx.fbcdn.net/rsrc.php/yo/r/iRmz9lCMBD2.ico" alt="Facebook" style="width:40px;">
-    <p>Grupo: <b>Planificación de Procesos SO</b><br>
-    <img src="https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif" alt="gif" style="width:100px;">
-    </p>
-    <div style="color:#555;font-size:13px;">
-      <b>Juan Pérez:</b> ¿Alguien tiene ejemplos de SJF?<br>
-      <b>Ana OS:</b> ¡Subí un meme de Round Robin!
+    <!-- Post principal estilo Facebook -->
+    <div style="background:#fff;border:1px solid #ddd;border-radius:10px;max-width:480px;margin:0 auto 18px auto;box-shadow:0 2px 8px #0001;">
+  <!-- Cabecera -->
+  <div style="display:flex;align-items:center;gap:10px;padding:14px 14px 0 14px;">
+    <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="avatar" style="width:48px;height:48px;border-radius:50%;">
+    <div>
+      <b style="font-size:16px;">Ing Angie</b><br>
+      <span style="color:#888;font-size:13px;">hace 1 min · <img src='https://static.xx.fbcdn.net/rsrc.php/v3/yx/r/-XF4FQcre_i.png' alt="mundo" style="width:12px;vertical-align:middle;"></span>
     </div>
+    <div style="margin-left:auto;">
+      <img src="https://static.xx.fbcdn.net/rsrc.php/v3/yJ/r/tInzwsw2pVX.png" alt="menu" style="width:20px;">
+    </div>
+  </div>
+  <!-- Texto -->
+  <div style="padding:10px 14px 0 14px;font-size:15px;">
+    Hoy toca hablar de <b>Round Robin</b> 🕑: el algoritmo que reparte el tiempo entre todos los procesos como si fueran niños en la fila del recreo. ¡Nadie se queda sin jugar!<br>
+    <span style="color:#1877f3;">#RoundRobin #PlanificaciónSO</span>
+  </div>
+  <!-- Imagen principal -->
+  <div style="padding:12px 0 0 0;">
+    <img src="roundRobin.jpg" alt="Round Robin" style="width:100%;max-width:480px;height:auto;object-fit:cover;display:block;margin:0 auto;border-radius:0 0 10px 10px;">
+  </div>
+  <!-- Reacciones y datos -->
+  <div style="padding:8px 14px 0 14px;font-size:14px;color:#555;display:flex;align-items:center;gap:10px;">
+    <img src="https://static.xx.fbcdn.net/rsrc.php/v3/yx/r/8O2eXgX8U3A.png" alt="like" style="width:18px;vertical-align:middle;">
+    <span>Angie, Jairo y 4 más</span>
+    <span style="margin-left:auto;">3 comentarios</span>
+  </div>
+  <hr style="margin:8px 0 0 0;border:0;border-top:1px solid #eee;">
+  <!-- Ventajas y desventajas -->
+  <div style="padding:8px 14px 0 14px;font-size:14px;color:#444;">
+    <b>Ventajas:</b> Justo y sencillo, ideal para sistemas interactivos.<br>
+    <b>Desventajas:</b> Si el quantum es muy corto, hay muchos cambios de contexto.<br>
+  </div>
+  <hr style="margin:8px 0 0 0;border:0;border-top:1px solid #eee;">
+  <!-- Comentarios -->
+  <div style="padding:10px 14px 10px 14px;">
+    <div style="margin-bottom:10px;">
+      <b>Ing Uberto</b>:  
+      <span>¡Round Robin es como repartir pizza: todos reciben su pedazo, aunque sea pequeño! 🍕</span>
+    </div>
+    <div style="margin-bottom:10px;">
+      <b>Ing Jairo</b>:  
+      <span>Cuando el quantum es tan corto que ni alcanzas a decir "hola" 😂</span>
+      <br>
+      <img src="https://media.giphy.com/media/3o6Zt6ML6BklcajjsA/giphy.gif" alt="Round Robin meme" style="width:120px;max-width:90%;border-radius:10px;margin-top:6px;">
+    </div>
+    <div style="margin-bottom:10px;">
+      <b>Ing David</b>:  
+      <span>¡Me gusta porque nadie se queda esperando mucho tiempo!</span>
+    </div>
+    <div style="margin-bottom:10px;">
+      <b>Profe Juan</b>:  
+      <span>Dato: Round Robin es el algoritmo base de muchos sistemas multitarea.</span>
+    </div>
+    <div>
+      <b>Ing Miguel</b>:  
+      <span>¡Ideal para sistemas donde todos quieren su turno rápido! ⏱️</span>
+    </div>
+  </div>
+  <!-- Caja de comentar -->
+  <hr style="margin:0 0 8px 0;border:0;border-top:1px solid #eee;">
+  <div style="padding:0 14px 14px 14px;display:flex;align-items:center;gap:8px;">
+    <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="avatar" style="width:32px;height:32px;border-radius:50%;">
+    <input type="text" placeholder="Escribe un comentario..." style="flex:1;border-radius:16px;border:1px solid #ddd;padding:6px 12px;font-size:14px;">
+  </div>
+</div>
   </div>
 </div>
 
 <!-- Ventana Chrome - TikTok -->
 <div id="window-chrome-tiktok" class="window hidden">
-  <div class="window-header">
+  <div class="window-header" style="display:flex;align-items:center;gap:10px;">
+    <img src="https://www.tiktok.com/favicon.ico" alt="TikTok" style="width:24px;height:24px;">
     Google Chrome - TikTok
-    <button class="btn-close" onclick="closeWindow('chrome-tiktok')">✖</button>
+    <button class="btn-close" onclick="closeWindow('chrome-tiktok')" style="margin-left:auto;">✖</button>
   </div>
-  <div class="window-body p-4 bg-white text-black font-sans overflow-y-auto">
-    <h2 style="color:#010101;">TikTok</h2>
-    <img src="https://sf16-ies-musc.ibytedtos.com/obj/pipo-sgcom/ies-music/fe/ies-music/favicon.ico" alt="TikTok" style="width:40px;">
-    <p>Videos cortos sobre planificación de procesos.<br>
-    <img src="https://media.giphy.com/media/3o6Zt481isNVuQI1l6/giphy.gif" alt="gif" style="width:100px;">
-    </p>
-    <div style="color:#555;font-size:13px;">
-      <b>@os_tiktoker:</b> ¡FIFO explicado en 15 segundos!<br>
-      <b>@algoritmos:</b> #PlanificaciónSO #TikTok
+  <div style="display:flex; height:700px; background:#181818; color:#fff; font-family:sans-serif; max-width:1200px; margin:auto;">
+    <!-- Menú lateral -->
+    <div style="width:120px; background:#111; padding:18px 0 0 0; display:flex; flex-direction:column; align-items:center;">
+      <img src="https://www.tiktok.com/favicon.ico" alt="TikTok" style="width:36px; margin-bottom:24px;">
+      <div style="color:#fff; font-weight:bold; margin-bottom:18px;">Para ti</div>
+      <div style="color:#aaa; margin-bottom:18px;">Explorar</div>
+      <div style="color:#aaa; margin-bottom:18px;">Siguiendo</div>
+      <div style="color:#aaa; margin-bottom:18px;">LIVE</div>
+      <div style="color:#aaa; margin-bottom:18px;">Perfil</div>
+      <button style="margin-top:24px; background:#fe2c55; color:#fff; border:none; border-radius:6px; padding:6px 18px; font-weight:bold;">Iniciar sesión</button>
+    </div>
+    <!-- Video y barra de acciones -->
+    <div style="flex:0 0 440px; display:flex; flex-direction:column; align-items:center; justify-content:center; position:relative; background:#181818; overflow:hidden;">
+      <div style="display:flex; flex-direction:row; align-items:center; justify-content:center; position:relative; width:100%; height:560px;">
+        <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;width:100%;height:100%;gap:0;">
+          <img src="planificacionPrioridad.jpg"
+               alt="Planificación por Prioridad"
+               style="width:320px;max-width:100%;height:auto;object-fit:contain;border-radius:16px 16px 0 0;box-shadow:0 2px 16px #000a;display:block;background:#222;">
+          <img src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExMTQzZWtxbXduNGVua2JraGdjNWk3bGQwMnZ2eWZnYXc5em40b2dwaSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/dkUtjuBEdICST5zG7p/giphy.gif"
+               alt="Subway Surfers GIF"
+               style="width:320px;max-width:100%;height:260px;object-fit:cover;border-radius:0 0 16px 16px;box-shadow:0 2px 16px #000a;display:block;">
+        </div>
+        <!-- Barra de acciones TikTok -->
+        <div style="position:absolute;right:-70px;top:120px;display:flex;flex-direction:column;align-items:center;gap:24px;">
+          <button style="background:#222;border:none;border-radius:50%;padding:14px;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px #0006;cursor:pointer;">
+            <img src="https://cdn-icons-png.flaticon.com/512/1077/1077035.png" alt="like" style="width:30px;">
+          </button>
+          <button style="background:#222;border:none;border-radius:50%;padding:14px;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px #0006;cursor:pointer;">
+            <img src="https://cdn-icons-png.flaticon.com/512/2462/2462719.png" alt="comment" style="width:30px;">
+          </button>
+          <button style="background:#222;border:none;border-radius:50%;padding:14px;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px #0006;cursor:pointer;">
+            <img src="https://cdn-icons-png.flaticon.com/512/929/929610.png" alt="share" style="width:30px;">
+          </button>
+        </div>
+      </div>
+      <!-- Descripción y usuario debajo del video -->
+      <div style="width:360px; margin:16px auto 0 auto; padding:0 4px;">
+        <div style="font-size:15px; color:#eee; margin-bottom:4px;">
+          <b style="color:#fff;">PLANIFICADOR_PRIORIDAD_OFICIALL</b>
+        </div>
+        <div style="font-size:15px; color:#eee;">
+          ¿Quién pasa primero? <b>¡El de mayor prioridad!</b> Así funciona este algoritmo: los procesos importantes no esperan, pero los de baja prioridad pueden quedarse en la cola... 😅
+        </div>
+        <div style="margin-top:4px; color:#25f4ee; font-size:14px;">
+          #Prioridad #PlanificaciónSO #CPU
+        </div>
+      </div>
+    </div>
+    <!-- Panel de comentarios -->
+    <div style="flex:1 1 0; min-width:320px; max-width:420px; background:#181818; padding:0 0 0 32px; display:flex; flex-direction:column; justify-content:flex-start; height:100%;">
+      <div style="margin-top:32px;flex:1 1 auto;overflow-y:auto;">
+        <div style="color:#25f4ee; font-size:15px; margin-bottom:14px;"><b>💬 Comentarios</b></div>
+        <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:16px;">
+          <img src="https://randomuser.me/api/portraits/men/41.jpg" alt="avatar" style="width:32px;height:32px;border-radius:50%;">
+          <div>
+            <b style="color:#fff;">@ing_uberto</b><br>
+            <span style="color:#eee;">¡En mi vida real, siempre me toca la menor prioridad! 😂</span>
+          </div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:16px;">
+          <img src="https://randomuser.me/api/portraits/men/42.jpg" alt="avatar" style="width:32px;height:32px;border-radius:50%;">
+          <div>
+            <b style="color:#fff;">@ing_jairo</b><br>
+            <span style="color:#eee;">Cuando eres prioridad baja y ves pasar a todos... 😭</span><br>
+            <img src="planificacionPrioridad.jpg" alt="Planificación por Prioridad" style="width:110px;max-width:90%;border-radius:10px;margin-top:6px;">
+          </div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:16px;">
+          <img src="https://randomuser.me/api/portraits/men/43.jpg" alt="avatar" style="width:32px;height:32px;border-radius:50%;">
+          <div>
+            <b style="color:#fff;">@ing_david</b><br>
+            <span style="color:#eee;">¡Ideal para procesos críticos, pero hay que cuidar la equidad!</span>
+          </div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:16px;">
+          <img src="https://randomuser.me/api/portraits/men/44.jpg" alt="avatar" style="width:32px;height:32px;border-radius:50%;">
+          <div>
+            <b style="color:#fff;">@profe_ing_juan</b><br>
+            <span style="color:#eee;">Dato: Se puede usar "aging" para evitar inanición en procesos de baja prioridad.</span>
+          </div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:10px;">
+          <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="avatar" style="width:32px;height:32px;border-radius:50%;">
+          <div>
+            <b style="color:#fff;">@ing_miguel</b><br>
+            <span style="color:#eee;">¡Prioridad alta = pase VIP en la CPU! 😎</span>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
